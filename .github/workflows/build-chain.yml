@@ -1,0 +1,19 @@
+name: Build Chain
+
+on: [pull_request]
+jobs:
+  build-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Set up JDK"
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: "Run build-chain"
+        id: build-chain
+        uses: kiegroup/github-action-build-chain@v2.5.8
+        with:
+          definition-file: https://github.com/waggle-sensor/bc-test-build-chain/blob/main/definitions.yml
+          logger-level: debug
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
